@@ -1,0 +1,9 @@
+%dl
+  %dt= EmployeeProjectCommunication.human_attribute_name(:project_id)
+  %dd= @employee_project_communication.project.name
+  %dt= EmployeeProjectCommunication.human_attribute_name(:employee_id)
+  %dd= @employee_project_communication.employee.last_name + " " + @employee_project_communication.employee.first_name + " " + @employee_project_communication.employee.patronymic
+
+= link_to 'Edit', edit_employee_project_communication_path(@employee_project_communication)
+\|
+= link_to 'Back', employee_project_communications_path

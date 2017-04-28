@@ -1,0 +1,16 @@
+= form_for @employee_project_communication do |f|
+  - if @employee_project_communication.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@employee_project_communication.errors.count, "error")} prohibited this employee_project_communication from being saved:"
+      %ul
+        - @employee_project_communication.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :project_id
+    = f.select :project_id, options_for_select(Project.all.map{|x|[x.name, x.id]}), include_blank: true
+  .field
+    = f.label :employee_id
+    = f.select :employee_id, options_for_select(Employee.all.map{|x|[x.last_name + " " + x.first_name + " " + x.patronymic, x.id]}), include_blank: true
+  .actions
+    = f.submit nil, class: 'btn btn-primary'

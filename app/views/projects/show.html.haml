@@ -1,0 +1,15 @@
+%h1= @project.name
+
+%dl
+  %dt= Project.human_attribute_name(:name)
+  %dd= @project.name
+  %dt= Project.human_attribute_name(:start_date)
+  %dd=  @project.start_date
+  %dt= Project.human_attribute_name(:finish_date)
+  %dd= @project.finish_date
+  %dt= Project.human_attribute_name(:price)
+  %dd= @project.price
+
+= link_to 'Edit', edit_project_path(@project)
+\|
+= link_to 'Back', projects_path

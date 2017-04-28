@@ -1,0 +1,28 @@
+%h1= t('app.employee_project_communications.index')
+
+%table.table.table-hover.table-striped.center
+  %caption
+    .pull-right
+      = link_to t('app.employee_project_communications.new-button'), new_employee_project_communication_path, class: 'btn btn-primary'
+  %thead
+    %tr
+      %th= EmployeeProjectCommunication.human_attribute_name(:project_id)
+      %th= EmployeeProjectCommunication.human_attribute_name(:employee_id)
+      %th.p50
+      %th.p50
+      %th.p50
+
+  %tbody
+    - @employee_project_communications.each do |employee_project_communication|
+      %tr
+        %td= employee_project_communication.project.name
+        %td= employee_project_communication.employee.last_name + " " + employee_project_communication.employee.first_name + " " + employee_project_communication.employee.patronymic
+        %td
+          = link_to employee_project_communication, class: 'btn btn-success' do
+            = fa_icon :eye
+        %td
+          = link_to edit_employee_project_communication_path(employee_project_communication), class: 'btn btn-info' do
+            = fa_icon :edit
+        %td
+          = link_to employee_project_communication, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+            = fa_icon :times

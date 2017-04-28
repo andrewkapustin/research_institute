@@ -1,0 +1,9 @@
+%h1= @department.name
+
+%dl
+  %dt= Department.human_attribute_name(:name)
+  %dd= @department.name
+
+= link_to 'Edit', edit_department_path(@department)
+\|
+= link_to 'Back', departments_path

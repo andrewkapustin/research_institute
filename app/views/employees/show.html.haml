@@ -1,0 +1,23 @@
+%h1= @employee.last_name + " " + @employee.first_name + " " + @employee.patronymic
+
+%dl
+  %dt= Employee.human_attribute_name(:last_name)
+  %dd= @employee.last_name
+  %dt= Employee.human_attribute_name(:first_name)
+  %dd= @employee.first_name
+  %dt= Employee.human_attribute_name(:patronymic)
+  %dd= @employee.patronymic
+  %dt= Employee.human_attribute_name(:passport)
+  %dd= @employee.passport
+  %dt= Employee.human_attribute_name(:itn)
+  %dd= @employee.itn
+  %dt= Employee.human_attribute_name(:date_of_birth)
+  %dd= @employee.date_of_birth
+  %dt= Employee.human_attribute_name(:post)
+  %dd= @employee.post
+  %dt= Employee.human_attribute_name(:department_id)
+  %dd= @employee.department.name
+
+= link_to 'Edit', edit_employee_path(@employee)
+\|
+= link_to 'Back', employees_path

@@ -1,0 +1,97 @@
+ru:
+  app:
+    name: Базовое приложение
+    company:
+      short_name: МПУ
+      department: Кафедра
+    users:
+      index: Список пользователей
+      new-button: Новый пользователь
+      edit: Редактирование пользователя
+      new: Создание пользователя
+    roles:
+      index: Список возможных ролей пользователей
+      new-button: Новая роль
+      edit: Редактирование роли
+      new: Создание роли
+    departments:
+      index: Список отделов
+      new-button: Новый отдел
+      edit: Редактирование отдела
+      new: Создание отдела
+    employees:
+      index: Список сотрудников
+      new-button: Новый сотрудник
+      edit: Редактирование сотрудника
+      new: Создание сотрудника
+    projects:
+      index: Список проектов
+      new-button: Новый проект
+      edit: Редактирование проекта
+      new: Создание проекта
+    employee_project_communications:
+      index: Список связей "проект:сотрудник"
+      new-button: Новый связь "проект:сотрудник"
+      edit: Редактирование связи "проект:сотрудник"
+      new: Создание связи "проект:сотрудник"
+
+  helpers:
+    submit:
+      create: Сохранить
+      submit: Сохранить
+      update: Сохранить
+    sure: Действительно удалить?
+
+  views:
+    pagination:
+      first: ⇤
+      last: ⇥
+      previous: ←
+      next: →
+      truncate: …
+  activerecord:
+    models:
+      user: Пользователь
+      department: Отдел
+      employee: Сотрудник
+      project: Проект
+      employee_project_communications: Cвязь "проект:сотрудник"
+    attributes:
+      user:
+        email: Пользовательское имя/электронная почта
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+        reset_password_email_sent_at: Дата отправления письма для смены пароля
+        activation_state: Статус активации
+        activation_token_expires_at: Дата прекращения действия токена активации
+        last_login_at: Время последнего входа в систему
+        role_users: Роли
+      role:
+        name: Обозначение
+        info: Краткое название
+        full_info: Описание
+      department:
+        name: Название
+      employee:
+        last_name: Фамилия
+        first_name: Имя
+        patronymic: Отчество
+        passport: Серия и номер паспорта
+        itn: ИНН
+        date_of_birth: Дата рождения
+        post: Должность
+        department_id: Отдел
+      project:
+        name: Название
+        start_date: Дата начала
+        finish_date: Дата окончания
+        price: Цена
+      employee_project_communication:
+        project_id: Проект
+        employee_id: Сотрудник
+    errors:
+      models:
+        person:
+          attributes:
+            snils:
+              check_sum: имеет неправильную контрольную сумму
