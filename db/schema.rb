@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 20170428201230) do
   end
 
   create_table "employee_project_communications", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "employee_id"
+    t.integer  "project_id",  null: false
+    t.integer  "employee_id", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20170428201230) do
     t.string   "itn",                      null: false
     t.date     "date_of_birth",            null: false
     t.string   "post",          limit: 30, null: false
-    t.integer  "department_id"
+    t.integer  "department_id",            null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
