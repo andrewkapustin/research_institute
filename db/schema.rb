@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20170428201230) do
     t.datetime "updated_at",            null: false
   end
 
+  add_index "departments", ["name"], name: "index_departments_on_name", unique: true, using: :btree
+
   create_table "employee_project_communications", force: :cascade do |t|
     t.integer  "project_id",  null: false
     t.integer  "employee_id", null: false
@@ -62,15 +64,19 @@ ActiveRecord::Schema.define(version: 20170428201230) do
   end
 
   add_index "employees", ["department_id"], name: "index_employees_on_department_id", using: :btree
+  add_index "employees", ["itn"], name: "index_employees_on_itn", unique: true, using: :btree
+  add_index "employees", ["passport"], name: "index_employees_on_passport", unique: true, using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name"
-    t.date     "start_date",  null: false
-    t.date     "finish_date", null: false
-    t.float    "price",       null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",        limit: 30, null: false
+    t.date     "start_date",             null: false
+    t.date     "finish_date",            null: false
+    t.float    "price",                  null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
+
+  add_index "projects", ["name", "start_date", "finish_date"], name: "index_projects_on_name_and_start_date_and_finish_date", unique: true, using: :btree
 
   create_table "role_users", force: :cascade do |t|
     t.integer  "role_id",    null: false
