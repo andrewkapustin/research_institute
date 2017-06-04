@@ -34,14 +34,30 @@ ru:
       new-button: Новый связь "проект:сотрудник"
       edit: Редактирование связи "проект:сотрудник"
       new: Создание связи "проект:сотрудник"
-
   helpers:
     submit:
       create: Сохранить
       submit: Сохранить
       update: Сохранить
-    sure: Действительно удалить?
-
+  buttons:
+    edit: Редактировать
+    destroy: Удалить
+    show: Показать
+    confirm:
+      user: Действительно удалить пользователя?
+      role: Действительно удалить роль?
+    new:
+      user: Новый пользователь
+      role: Новая роль
+  headers:
+    users:
+      edit: Редактирование пользователя
+      new: Новый пользователь
+      index: Список пользователей
+    roles:
+      index: Список возможных ролей пользователей
+      edit: Редактирование роли
+      new: Новая роль
   views:
     pagination:
       first: ⇤
@@ -55,10 +71,10 @@ ru:
       department: Отдел
       employee: Сотрудник
       project: Проект
-      employee_project_communications: Cвязь "проект:сотрудник"
     attributes:
       user:
         email: Пользовательское имя/электронная почта
+        birthday: Дата рождения
         password: Пароль
         password_confirmation: Подтверждение пароля
         reset_password_email_sent_at: Дата отправления письма для смены пароля
@@ -70,6 +86,16 @@ ru:
         name: Обозначение
         info: Краткое название
         full_info: Описание
+      # nested_start
+      role_user: &role_users
+      # nested_finish
+        role: Роль
+        role_id: Роль
+        data: Параметры
+      # nested_start
+      user/role_users:
+        <<: *role_users
+      # nested_finish
       department:
         name: Название
       employee:
