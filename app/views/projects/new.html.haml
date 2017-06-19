@@ -1,5 +1,12 @@
-%h1= t('app.projects.new')
+=breadcrumb_tag do
+  %li.active
+    = t('breadcrumb.app')
+  %li.active
+    = link_to t('breadcrumb.projects'), projects_path
+  %li
+    = t('breadcrumb.new')
+
+.page-header
+  %h1= t('headers.projects.new')
 
 = render 'form'
-
-= link_to 'Back', projects_path

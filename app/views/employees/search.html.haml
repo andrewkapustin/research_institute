@@ -1,0 +1,98 @@
+
+= form_tag search_employees_path(), method: :get do
+  .well
+    %h3 Поиск
+    .row
+      .col-md-4
+        .form-group
+        =Employee.human_attribute_name(:last_name)
+        =text_field_tag 'search[last_name]', params['search']['last_name'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =Employee.human_attribute_name(:first_name)
+        =text_field_tag 'search[first_name]', params['search']['first_name'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =Employee.human_attribute_name(:patronymic)
+        =text_field_tag 'search[patronymic]', params['search']['patronymic'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =Employee.human_attribute_name(:passport)
+        =text_field_tag 'search[passport]', params['search']['passport'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =Employee.human_attribute_name(:itn)
+        =text_field_tag 'search[itn]', params['search']['itn'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =Employee.human_attribute_name(:date_of_birth)
+        .input-group.date.datepicker
+          =text_field_tag 'search[date_of_birth]', params['search']['date_of_birth'],class: 'form-control'
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+
+      .col-md-4
+        .form-group
+        =Employee.human_attribute_name(:post)
+        =text_field_tag 'search[post]', params['search']['post'],class: 'form-control'
+
+    %h2 Поиск по атрибутам проектов
+    .row
+      .col-md-4
+        .form-group
+        =Project.human_attribute_name(:name)
+        =text_field_tag 'search[name]', params['search']['name'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =Project.human_attribute_name(:start_date)
+        .input-group.date.datepicker
+          =text_field_tag 'search[start_date]', params['search']['start_date'],class: 'form-control'
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+      .col-md-4
+        .form-group
+        =Project.human_attribute_name(:finish_date)
+        .input-group.date.datepicker
+          =text_field_tag 'search[finish_date]', params['search']['finish_date'],class: 'form-control'
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+      .col-md-4
+        .form-group
+        =Project.human_attribute_name(:price)
+        =text_field_tag 'search[price]', params['search']['price'],class: 'form-control'
+    %h2 Поиск по атрибутам отделов
+    .row
+      .col-md-4
+        .form-group
+        =Department.human_attribute_name(:name)
+        = select_tag 'search[name_dep]',options_for_select((Department.all.map{|x| [x.name]}.uniq),@old_name),
+          {include_blank: true, class: 'form-control'}
+
+
+  .actions
+    =submit_tag "Найти", class: 'bnt btn-primary'
+.page-header
+  %h1 Результат
+- if @employees.size > 0
+  .row
+    .col-md-4
+      .form-group
+        %dl
+        - @employees.each do |employee|
+          %dt= Employee.human_attribute_name(:last_name)
+          %dd= employee.last_name
+          %dt= Employee.human_attribute_name(:first_name)
+          %dd= employee.first_name
+          %dt= Employee.human_attribute_name(:patronymic)
+          %dd= employee.patronymic
+          %dt= Employee.human_attribute_name(:passport)
+          %dd= employee.passport
+          %dt= Employee.human_attribute_name(:itn)
+          %dd= employee.itn
+          %dt= Employee.human_attribute_name(:date_of_birth)
+          %dd= employee.date_of_birth
+          %dt= Employee.human_attribute_name(:post)
+          %dd= employee.post
+          %dt= Employee.human_attribute_name(:department_id)
+          %dd= employee.department.name
+  %h3= "Всего найдено" + @employees.size.to_s

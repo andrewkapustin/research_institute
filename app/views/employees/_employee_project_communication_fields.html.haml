@@ -1,0 +1,41 @@
+.nested-fields.forms-body-assotiation.employees{ class: "project-#{f.object.try(:project).try(:id)}" }
+  .form-group
+    .row
+      .col-md-5
+        = f.label :project_id
+        = f.collection_select :project_id, Project.all,
+        :id, :name, {include_blank: true}
+
+    = f.fields_for :project, f.object.project || f.object.build_project do |fw|
+      .row
+        .project-id
+          = fw.hidden_field :id
+
+        .col-md-6.field
+          = fw.label :name
+          = fw.text_field :name, class: 'form-control'
+
+        .col-md-6.field
+          = fw.label :price
+          = fw.number_field :price, class: 'form-control'
+
+        = fw.label :start_date
+      .input-group.date.datepicker.field
+        = fw.text_field :start_date, value: lnil(fw.object.start_date),
+        class: 'form-control'
+        %span.input-group-addon
+          %span.glyphicon.glyphicon-calendar
+
+      = fw.label :finish_date
+      .input-group.date.datepicker.field
+        = fw.text_field :finish_date, value: lnil(fw.object.finish_date),
+        class: 'form-control'
+        %span.input-group-addon
+          %span.glyphicon.glyphicon-calendar
+      .assotiation-links
+        = link_to_remove_association t('buttons.delete'), f,
+        class: 'btn btn-info'
+        - if ( params[:action] == 'edit' && !f.object.new_record? )
+          = link_to t("buttons.destroy"), f.object.project, method: :delete,
+          class: 'btn btn-danger', data: { confirm: t('buttons.confirm.employee') },
+          remote: true

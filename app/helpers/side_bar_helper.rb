@@ -24,14 +24,17 @@ module SideBarHelper
        :class => 'long'},
     ]}
     result << {
-      :name => 'Заголовок ссылок',
+      :name => 'НИИ',
       :icon => 'search-plus',
       :children => [
-      {:name => 'Ссылка ребёнок',
-       :controller => :welcome, :action => :index,
+      {:name => 'Сотрудники',
+       :controller => :employees, :action => :index,
        :icon => 'binoculars'},
-      {:name => 'Ссылка ребёнок',
-       :controller => :welcome, :action => :index,
+      {:name => 'Поиск сотрудников',
+       :controller => :employees, :action => :search,
+       :icon => 'search'},
+      {:name => 'Проекты',
+       :controller => :projects, :action => :index,
        :icon => 'search',
        :class => 'long'}
     ]}

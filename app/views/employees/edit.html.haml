@@ -1,7 +1,14 @@
-%h1= t('app.employees.edit')
+=breadcrumb_tag do
+  %li.active
+    = t('breadcrumb.app')
+  %li.active
+    = link_to t('breadcrumb.employees'), employees_path
+  %li
+    = link_to @employee.last_name, (employee_path(@employee))
+  %li
+    = t('breadcrumb.edit') + ' ' +  @employee.last_name
+
+.page-header
+  %h1= t('headers.employees.edit')
 
 = render 'form'
-
-= link_to 'Show', @employee
-\|
-= link_to 'Back', employees_path

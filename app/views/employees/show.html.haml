@@ -1,23 +1,55 @@
-%h1= @employee.last_name + " " + @employee.first_name + " " + @employee.patronymic
+=breadcrumb_tag do
+  %li.active
+    = t('breadcrumb.app')
+  %li.active
+    = link_to t('breadcrumb.employees'), employees_path(@employee)
+  %li
+    = @employee.last_name
 
-%dl
-  %dt= Employee.human_attribute_name(:last_name)
-  %dd= @employee.last_name
-  %dt= Employee.human_attribute_name(:first_name)
-  %dd= @employee.first_name
-  %dt= Employee.human_attribute_name(:patronymic)
-  %dd= @employee.patronymic
-  %dt= Employee.human_attribute_name(:passport)
-  %dd= @employee.passport
-  %dt= Employee.human_attribute_name(:itn)
-  %dd= @employee.itn
-  %dt= Employee.human_attribute_name(:date_of_birth)
-  %dd= @employee.date_of_birth
-  %dt= Employee.human_attribute_name(:post)
-  %dd= @employee.post
-  %dt= Employee.human_attribute_name(:department_id)
-  %dd= @employee.department.name
+%p#notice= notice
 
-= link_to 'Edit', edit_employee_path(@employee)
-\|
-= link_to 'Back', employees_path
+.page-header
+  %h1= t('headers.employees.show')
+
+= link_to edit_employee_path(@employee), class: 'btn btn-info' do
+  = fa_icon (:edit)
+  = t('buttons.edit')
+
+.row
+  .col-lg-6.col-xs-12
+    .show-block
+      %span.show-block-header= t('activerecord.models.employee')
+      %dl.horizontal
+        %dt= Employee.human_attribute_name(:first_name)
+        %dd= @employee.first_name
+        %dt= Employee.human_attribute_name(:last_name)
+        %dd= @employee.last_name
+        %dt= Employee.human_attribute_name(:patronymic)
+        %dd= @employee.patronymic
+        %dt= Employee.human_attribute_name(:passport)
+        %dd= @employee.passport
+        %dt= Employee.human_attribute_name(:itn)
+        %dd= @employee.itn
+        %dt= Employee.human_attribute_name(:date_of_birth)
+        %dd= @employee.date_of_birth
+        %dt= Employee.human_attribute_name(:post)
+        %dd= @employee.post
+        %dt= Employee.human_attribute_name(:department)
+        %dd= @employee.department.name
+
+  .col-lg-6.col-xs-12
+    .show-block
+      %span.show-block-header= t('activerecord.attributes.employee.projects')
+      - @employee.projects.each do |project|
+        .assotiations
+          %dl.horizontal
+            %dt= Project.human_attribute_name(:name)
+            %dd= project.name
+            %dt= Project.human_attribute_name(:start_date)
+            %dd= project.start_date
+            %dt= Project.human_attribute_name(:finish_date)
+            %dd= project.finish_date
+            %dt= Project.human_attribute_name(:price)
+            %dd= project.price
+
+            -# = link_to 'Edit', edit_employee_path(@employee)

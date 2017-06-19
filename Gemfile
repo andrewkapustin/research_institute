@@ -31,7 +31,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem "cocoon"
 gem 'rails-i18n'
 gem 'haml-rails'
 gem 'bootstrap-sass'

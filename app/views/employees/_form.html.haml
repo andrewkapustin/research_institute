@@ -1,34 +1,68 @@
 = form_for @employee do |f|
-  - if @employee.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@employee.errors.count, "error")} prohibited this employee from being saved:"
-      %ul
-        - @employee.errors.full_messages.each do |message|
-          %li= message
+  = error_messages_for @employee
 
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
-  .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :patronymic
-    = f.text_field :patronymic
-  .field
-    = f.label :passport
-    = f.text_field :passport
-  .field
-    = f.label :itn
-    = f.text_field :itn
-  .field
-    = f.label :date_of_birth
-    = f.date_select :date_of_birth
-  .field
-    = f.label :post
-    = f.text_field :post
-  .field
-    = f.label :department_id
-    = f.select :department_id, options_for_select(Department.all.map{|x|[x.name, x.id]}), include_blank: true
+  .forms
+    %span.forms-header
+      = t('activerecord.models.employee')
+
+    .forms-body
+      .row
+        .col-md-4.field
+          = f.label :first_name
+          = f.text_field :first_name, class: 'form-control'
+        = f.error_messages_for(:first_name)
+        .col-md-4.field
+          = f.label :last_name
+          = f.text_field :last_name, class: 'form-control'
+        = f.error_messages_for(:last_name)
+        .col-md-4.field
+          = f.label :patronymic
+          = f.text_field :patronymic, class: 'form-control'
+        = f.error_messages_for(:patronymic)
+      .row
+        .col-md-4.field
+          = f.label :passport
+          = f.text_field :passport, class: 'form-control'
+        = f.error_messages_for(:passport)
+        .col-md-4.field
+          = f.label :itn
+          = f.text_field :itn, class: 'form-control'
+        = f.error_messages_for(:itn)
+        .col-md-4.field
+          = f.label :post
+          = f.text_field :post, class: 'form-control'
+        = f.error_messages_for(:post)
+      = f.label :date_of_birth
+      .input-group.date.datepicker.field
+        = f.text_field(:date_of_birth, value: lnil(f.object.date_of_birth),
+        class: 'form-control')
+        %span.input-group-addon
+          %span.glyphicon.glyphicon-calendar
+      = f.error_messages_for(:date_of_birth)
+
+  .forms
+    %span.forms-header
+      = t('activerecord.attributes.employee.department')
+    .forms-body
+      = f.collection_select :department_id, Department.all, :id, :name,
+      {include_blank: true}, {id: 'select_existing_department'}
+      = f.fields_for :department,
+      f.object.department || f.object.build_department do |department|
+        = render 'department_fields', f: department
+
+  .forms
+    %span.forms-header
+      = t('activerecord.attributes.employee.projects')
+    .forms-body#projects
+      .forms-body-select
+        = link_to_add_association f, :employee_project_communications,
+        class: 'btn btn-success',
+        data:{ association_insertion_node: '.forms-body-select',
+        association_insertion_method: :after  } do
+          = fa_icon :plus
+          = t('buttons.add_project')
+      = f.fields_for :employee_project_communications do |employee_project|
+        = render 'employee_project_communication_fields', f: employee_project
+
   .actions
     = f.submit nil, class: 'btn btn-primary'

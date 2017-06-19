@@ -252,6 +252,13 @@ $paddings: (5 10 20 30 40 50)
   .mright#{$padding}
     margin-right: #{$padding}px
 
+
+dl.horizontal
+  dt
+    float: left
+    margin-right: 18px
+
+
 @media print
   a[href]:after
     content: none
@@ -270,5 +277,3 @@ $percents: (90 85 80 75 70 65 60 55 50 40 30 20 10 5)
   .small#{$percent}
     font-size: #{$percent+'%'}
     padding: #{round($padding-base-vertical * $percent / 100)} #{round($padding-base-horizontal * $percent / 100)} #{round($padding-base-vertical * $percent / 100)} #{round($padding-base-horizontal * $percent / 100)}
-.bottom20
-  padding-bottom: 20px

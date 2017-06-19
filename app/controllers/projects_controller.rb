@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to @project, notice: 'Проект создан.' }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to @project, notice: 'Проект обновлен.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -54,10 +54,21 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    EmployeeProjectCommunication.where(project: @project).each{|x| x.destroy}
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.js
+      format.html { redirect_to projects_url, notice: 'Проект удален.' }
       format.json { head :no_content }
+    end
+  end
+
+  def employee_fields
+    id = params[:employee_id].to_i
+    @employee = employee.find(id)
+    @timestamp = params[:timestamp].to_i
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -69,6 +80,8 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :start_date, :finish_date, :price)
+      params.require(:project).permit(:name, :start_date, :finish_date, :price,
+        employee_project_communications_attributes: [:_destroy, :employee_id, :id,
+          employee_attributes: Employee.attributes_names.map(&:to_sym).push(:_destroy)])
     end
 end

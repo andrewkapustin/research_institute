@@ -7,6 +7,16 @@ class EmployeesController < ApplicationController
     @employees = Employee.all
   end
 
+  def search
+    if params.has_key?('search')
+      @employees = Employee.search(params['search'])
+    else
+      @employees = []
+    end
+    params['search'] ||= {}
+    @old_name=params.has_key?('search') ? params[:search][:name_dep] : ""
+  end
+
   # GET /employees/1
   # GET /employees/1.json
   def show
@@ -24,11 +34,12 @@ class EmployeesController < ApplicationController
   # POST /employees
   # POST /employees.json
   def create
+    # raise params.to_s
     @employee = Employee.new(employee_params)
 
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
+        format.html { redirect_to @employee, notice: 'Работник создан.' }
         format.json { render :show, status: :created, location: @employee }
       else
         format.html { render :new }
@@ -40,9 +51,10 @@ class EmployeesController < ApplicationController
   # PATCH/PUT /employees/1
   # PATCH/PUT /employees/1.json
   def update
+    # raise params.to_s
     respond_to do |format|
       if @employee.update(employee_params)
-        format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
+        format.html { redirect_to @employee, notice: 'Работник обновлен.' }
         format.json { render :show, status: :ok, location: @employee }
       else
         format.html { render :edit }
@@ -56,8 +68,31 @@ class EmployeesController < ApplicationController
   def destroy
     @employee.destroy
     respond_to do |format|
-      format.html { redirect_to employees_url, notice: 'Employee was successfully destroyed.' }
+      format.js
+      format.html { redirect_to employees_url, notice: 'Работник удален.' }
       format.json { head :no_content }
+    end
+  end
+
+  def department_fields
+    id = params[:department_id].to_i
+    if id > 0
+      @department = Department.find(id)
+    else
+      @department = nil
+    end
+    # raise @department.inspect
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def project_fields
+    id = params[:project_id].to_i
+    @project = Project.find(id)
+    @timestamp = params[:timestamp].to_i
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -69,6 +104,10 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:last_name, :first_name, :patronymic, :passport, :itn, :date_of_birth, :post, :department_id)
-    end
+      params.require(:employee).permit(:first_name, :last_name, :patronymic, :passport,
+      :itn, :date_of_birth, :post, :departament_id,
+      :departament_attributes => [:name, :id],
+      employee_project_communications_attributes: [:_destroy, :project_id, :id,
+        project_attributes: Project.attributes_names.map(&:to_sym).push(:_destroy)])
+end
 end

@@ -1,15 +1,50 @@
-%h1= @project.name
+=breadcrumb_tag do
+  %li.active
+    = t('breadcrumb.app')
+  %li.active
+    = link_to t('breadcrumb.projects'), projects_path
+  %li
+    = @project.name
 
-%dl
-  %dt= Project.human_attribute_name(:name)
-  %dd= @project.name
-  %dt= Project.human_attribute_name(:start_date)
-  %dd=  @project.start_date
-  %dt= Project.human_attribute_name(:finish_date)
-  %dd= @project.finish_date
-  %dt= Project.human_attribute_name(:price)
-  %dd= @project.price
+%p#notice= notice
 
-= link_to 'Edit', edit_project_path(@project)
-\|
-= link_to 'Back', projects_path
+.page-header
+  %h1= t('headers.projects.show')
+
+.row
+  .col-lg-6.col-xs-12
+    .show-block
+      %span.show-block-header= t('activerecord.models.project')
+      %dl.horizontal
+        %dt= Project.human_attribute_name(:name)
+        %dd= @project.name
+        %dt= Project.human_attribute_name(:start_date)
+        %dd= @project.start_date
+        %dt= Project.human_attribute_name(:finish_date)
+        %dd= @project.finish_date
+        %dt= Project.human_attribute_name(:price)
+        %dd= @project.price
+  .col-lg-6.col-xs-12
+    .show-block
+      %span.show-block-header= t('activerecord.attributes.project.employees')
+      - @project.employees.each do |employee|
+        .assotiations
+          %dl.horizontal
+            %dt= Employee.human_attribute_name(:first_name)
+            %dd= employee.first_name
+            %dt= Employee.human_attribute_name(:last_name)
+            %dd= employee.last_name
+            %dt= Employee.human_attribute_name(:patronymic)
+            %dd= employee.patronymic
+            %dt= Employee.human_attribute_name(:passport)
+            %dd= employee.passport
+            %dt= Employee.human_attribute_name(:itn)
+            %dd= employee.itn
+            %dt= Employee.human_attribute_name(:date_of_birth)
+            %dd= employee.date_of_birth
+            %dt= Employee.human_attribute_name(:post)
+            %dd= employee.post
+            %dt= Employee.human_attribute_name(:department)
+            %dd= employee.department.name
+
+-# = link_to 'Edit', edit_project_path(@project)

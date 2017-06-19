@@ -1,63 +1,63 @@
 ru:
   app:
-    name: Базовое приложение
+    name: Научный Исследовательский Институт
     company:
       short_name: МПУ
       department: Кафедра
-    users:
-      index: Список пользователей
-      new-button: Новый пользователь
-      edit: Редактирование пользователя
-      new: Создание пользователя
-    roles:
-      index: Список возможных ролей пользователей
-      new-button: Новая роль
-      edit: Редактирование роли
-      new: Создание роли
-    departments:
-      index: Список отделов
-      new-button: Новый отдел
-      edit: Редактирование отдела
-      new: Создание отдела
-    employees:
-      index: Список сотрудников
-      new-button: Новый сотрудник
-      edit: Редактирование сотрудника
-      new: Создание сотрудника
-    projects:
-      index: Список проектов
-      new-button: Новый проект
-      edit: Редактирование проекта
-      new: Создание проекта
-    employee_project_communications:
-      index: Список связей "проект:сотрудник"
-      new-button: Новый связь "проект:сотрудник"
-      edit: Редактирование связи "проект:сотрудник"
-      new: Создание связи "проект:сотрудник"
   helpers:
     submit:
       create: Сохранить
       submit: Сохранить
       update: Сохранить
+    empty: Не указано
   buttons:
     edit: Редактировать
     destroy: Удалить
     show: Показать
+    delete: Отвязать
     confirm:
       user: Действительно удалить пользователя?
       role: Действительно удалить роль?
+      department: Действительно удалить отдел?
+      employee: Действительно удалить работника?
+      project: Действительно удалить проект?
+      employee_project_communication: Действительно удалить связь?
     new:
       user: Новый пользователь
       role: Новая роль
+      departments: Новый отдел
+      employee: Новый работник
+      project: Новый проект
+      employee_project_communications: Добавить связь
+    add_project: Добавить проект
+    add_employee: Добавить работника
   headers:
     users:
       edit: Редактирование пользователя
       new: Новый пользователь
       index: Список пользователей
+    employee_project_communications:
+      index: Список связей Проект-Работник
+      edit: Редактирование связи
+      new: Новая связь
     roles:
       index: Список возможных ролей пользователей
       edit: Редактирование роли
       new: Новая роль
+    departments:
+      index: Список отделов
+      edit: Редактирование отделов
+      new: Новый отдел
+    employees:
+      index: Список работников
+      edit: Редактирование работника
+      new: Новый работник
+      show: Просмотр работника
+    projects:
+      index: Список проектов
+      edit: Редактирование проекта
+      new: Новый проект
+      show: Просмотр проекта
   views:
     pagination:
       first: ⇤
@@ -68,10 +68,14 @@ ru:
   activerecord:
     models:
       user: Пользователь
-      department: Отдел
-      employee: Сотрудник
       project: Проект
+      employee: Работник
     attributes:
+      employee_project_communication:
+        project: Проект
+        project_id: Проект
+        employee: Работник
+        employee_id: Работник
       user:
         email: Пользовательское имя/электронная почта
         birthday: Дата рождения
@@ -86,38 +90,29 @@ ru:
         name: Обозначение
         info: Краткое название
         full_info: Описание
-      # nested_start
-      role_user: &role_users
-      # nested_finish
-        role: Роль
-        role_id: Роль
-        data: Параметры
-      # nested_start
-      user/role_users:
-        <<: *role_users
-      # nested_finish
       department:
-        name: Название
-      employee:
-        last_name: Фамилия
-        first_name: Имя
-        patronymic: Отчество
-        passport: Серия и номер паспорта
-        itn: ИНН
-        date_of_birth: Дата рождения
-        post: Должность
-        department_id: Отдел
+        name: Название отдела
       project:
         name: Название
-        start_date: Дата начала
+        start_date: Дата запуска
         finish_date: Дата окончания
         price: Цена
-      employee_project_communication:
-        project_id: Проект
-        employee_id: Сотрудник
-    errors:
-      models:
-        person:
-          attributes:
-            snils:
-              check_sum: имеет неправильную контрольную сумму
+        employees: Работники
+      employee:
+        first_name: Имя
+        last_name: Фамилия
+        patronymic: Отчество
+        passport: Номер паспорта
+        itn: Серия паспорта
+        date_of_birth: День рождения
+        post: Должность
+        department: Отдел
+        department_id: Отдел
+        projects: Проекты
+  breadcrumb:
+    app: НИИ
+    projects: Проекты
+    employees: Работники
+    edit: ред.
+    new: Создание
+    show: Просмотр

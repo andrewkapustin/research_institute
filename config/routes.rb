@@ -1,11 +1,19 @@
 Rails.application.routes.draw do
   resources :employee_project_communications
   resources :projects
-  resources :employees
+  resources :employees do
+    collection do
+      get :search
+    end
+  end
   resources :departments
   resources :role_users
   resources :roles
   resources :password_resets
+
+  post 'department_fields' => 'employees#department_fields'
+  post 'project_fields' => 'employees#project_fields'
+  post 'employee_fields' => 'projects#employee_fields'
 
   get 'welcome/index', as: :welcome
   get 'welcome/insufficient_privileges', as: :ip
