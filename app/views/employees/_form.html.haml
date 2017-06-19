@@ -1,11 +1,11 @@
 = form_for @employee do |f|
   = error_messages_for @employee
 
-  .forms
-    %span.forms-header
+  .panel.panel-info
+    .panel-heading
       = t('activerecord.models.employee')
 
-    .forms-body
+    .panel-body
       .row
         .col-md-4.field
           = f.label :first_name
@@ -40,27 +40,28 @@
           %span.glyphicon.glyphicon-calendar
       = f.error_messages_for(:date_of_birth)
 
-  .forms
-    %span.forms-header
+  .panel.panel-info
+    .panel-heading
       = t('activerecord.attributes.employee.department')
-    .forms-body
-      = f.collection_select :department_id, Department.all, :id, :name,
-      {include_blank: true}, {id: 'select_existing_department'}
-      = f.fields_for :department,
-      f.object.department || f.object.build_department do |department|
-        = render 'department_fields', f: department
+    .panel-body
+      .row
+        .col-md-12
+          = f.collection_select :department_id, Department.all, :id, :name,
+          {include_blank: true}, {id: 'select_existing_department', class: 'form-control'}
+          = f.fields_for :department,
+          f.object.department || f.object.build_department do |department|
+            = render 'department_fields', f: department
 
-  .forms
-    %span.forms-header
+  .panel.panel-info.forms-body-select#projects
+    .panel-heading
       = t('activerecord.attributes.employee.projects')
-    .forms-body#projects
-      .forms-body-select
-        = link_to_add_association f, :employee_project_communications,
-        class: 'btn btn-success',
-        data:{ association_insertion_node: '.forms-body-select',
-        association_insertion_method: :after  } do
-          = fa_icon :plus
-          = t('buttons.add_project')
+    .panel-body
+      = link_to_add_association f, :employee_project_communications,
+      class: 'btn btn-success',
+      data:{ association_insertion_node: '.forms-body-select',
+      association_insertion_method: :after  } do
+        = fa_icon :plus
+        = t('buttons.add_project')
       = f.fields_for :employee_project_communications do |employee_project|
         = render 'employee_project_communication_fields', f: employee_project
 

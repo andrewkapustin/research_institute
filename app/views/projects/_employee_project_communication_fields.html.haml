@@ -1,43 +1,46 @@
-.forms-body-assotiation.employees{ class: "employee-#{f.object.try(:employee).try(:id)}" }
-  .row
-    .col-md-5
-      = f.label :employee_id
-      = f.collection_select :employee_id, Employee.all,
-      :id, :last_name, {include_blank: true}
+.panel.panel-success.forms-body-assotiation.employees{ class: "employee-#{f.object.try(:employee).try(:id)}" }
+  .panel-heading
+    = EmployeeProjectCommunication.human_attribute_name(:employee)
+  .panel-body
+    .row
+      .col-md-12
+        = f.label :employee_id
+        = f.collection_select :employee_id, Employee.all,
+        :id, :last_name, {include_blank: true}, class: 'form-control'
 
-  = f.fields_for :employee, f.object.employee || f.object.build_employee do |fw|
-    .row
-      .field.employee-id
-        = fw.hidden_field :id, class: 'form-control'
-      .col-md-4.field.employee-
-        = fw.label :first_name
-        = fw.text_field :first_name, class: 'form-control'
-      .col-md-4.field.employee-last_name
-        = fw.label :last_name
-        = fw.text_field :last_name, class: 'form-control'
-      .col-md-4.field.employee-patronymic
-        = fw.label :patronymic
-        = fw.text_field :patronymic, class: 'form-control'
-    .row
-      .col-md-4.field.employee-passport
-        = fw.label :passport
-        = fw.text_field :passport, class: 'form-control'
-      .col-md-4.field.employee-itn
-        = fw.label :itn
-        = fw.text_field :itn, class: 'form-control'
-      .col-md-4.field.employee-post
-        = fw.label :post
-        = fw.text_field :post, class: 'form-control'
-    = fw.label :date_of_birth
-    .input-group.date.datepicker.field.employee-date_of_birth
-      = fw.text_field(:date_of_birth, value: lnil(fw.object.try(:date_of_birth)),
-      class: 'form-control')
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-    .assotiation-links
-      = link_to_remove_association t('buttons.delete'), f,
-      class: 'btn btn-info'
-      - if ( params[:action] == 'edit' && !f.object.new_record? )
-        = link_to t("buttons.destroy"), f.object.employee, method: :delete,
-        class: 'btn btn-danger', data: { confirm: t('buttons.confirm.employee') },
-        remote: true
+    = f.fields_for :employee, f.object.employee || f.object.build_employee do |fw|
+      .row
+        .field.employee-id
+          = fw.hidden_field :id, class: 'form-control'
+        .col-md-4.field.employee-
+          = fw.label :first_name
+          = fw.text_field :first_name, class: 'form-control'
+        .col-md-4.field.employee-last_name
+          = fw.label :last_name
+          = fw.text_field :last_name, class: 'form-control'
+        .col-md-4.field.employee-patronymic
+          = fw.label :patronymic
+          = fw.text_field :patronymic, class: 'form-control'
+      .row
+        .col-md-4.field.employee-passport
+          = fw.label :passport
+          = fw.text_field :passport, class: 'form-control'
+        .col-md-4.field.employee-itn
+          = fw.label :itn
+          = fw.text_field :itn, class: 'form-control'
+        .col-md-4.field.employee-post
+          = fw.label :post
+          = fw.text_field :post, class: 'form-control'
+      = fw.label :date_of_birth
+      .input-group.date.datepicker.field.employee-date_of_birth
+        = fw.text_field(:date_of_birth, value: lnil(fw.object.try(:date_of_birth)),
+        class: 'form-control')
+        %span.input-group-addon
+          %span.glyphicon.glyphicon-calendar
+      .assotiation-links
+        = link_to_remove_association t('buttons.delete'), f,
+        class: 'btn btn-info'
+        - if ( params[:action] == 'edit' && !f.object.new_record? )
+          = link_to t("buttons.destroy"), f.object.employee, method: :delete,
+          class: 'btn btn-danger', data: { confirm: t('buttons.confirm.employee') },
+          remote: true

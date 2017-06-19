@@ -1,3 +1,4 @@
+# console.log('<%= @employee.inspect %>')
 ids = []
 $('.employee-id input').each( ->
   value = $(this).val()
@@ -5,12 +6,11 @@ $('.employee-id input').each( ->
     ids.push(+value) )
 
 id = "<%= @employee.try(:id) %>"
-firstWorker = !ids.includes(+id)
+firstEmployee = !ids.includes(+id)
 timestamp = "<%= @timestamp %>"
 employee = ("<%= @employee.nil? %>" == 'false')
-selectorPrefix = "#employee_project_communicatons_attributes_"
-
-if employee && firstWorker
+selectorPrefix = "#project_employee_project_communications_attributes_"
+if employee && firstEmployee
   first_name           = "<%= @employee.try(:first_name) %>"
   last_name           = "<%= @employee.try(:last_name) %>"
   patronymic           = "<%= @employee.try(:patronymic) %>"
@@ -19,7 +19,7 @@ if employee && firstWorker
   date_of_birth     = "<%= @employee.try(:date_of_birth) %>"
   post         = "<%= @employee.try(:post) %>"
 else
-  if !firstWorker
+  if !firstEmployee
     $(selectorPrefix + timestamp + '_employee_id').val(0)
   first_name           = ""
   last_name           = ""

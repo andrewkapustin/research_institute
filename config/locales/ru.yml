@@ -109,6 +109,9 @@ ru:
         department: Отдел
         department_id: Отдел
         projects: Проекты
+  date:
+    formats:
+      default: "%d.%m.%Y"
   breadcrumb:
     app: НИИ
     projects: Проекты

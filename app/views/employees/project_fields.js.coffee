@@ -9,7 +9,7 @@ firstProject = !ids.includes(+id)
 
 timestamp = "<%= @timestamp %>"
 project = ("<%= @project.nil? %>" == 'false')
-selectorPrefix = "#employee_project_communications_attributes_"
+selectorPrefix = "#employee_employee_project_communications_attributes_"
 
 if project && firstProject
   name         = "<%= @project.try(:name) %>"

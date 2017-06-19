@@ -64,8 +64,9 @@ class ProjectsController < ApplicationController
   end
 
   def employee_fields
+    # raise params.inspect
     id = params[:employee_id].to_i
-    @employee = employee.find(id)
+    @employee = Employee.find(id)
     @timestamp = params[:timestamp].to_i
     respond_to do |format|
       format.js
